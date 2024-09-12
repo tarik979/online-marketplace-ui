@@ -1,0 +1,34 @@
+<h4 *ngIf="showAll; else showSellerName">All Sales List</h4>
+<ng-template #showSellerName>
+  <h4>Sells List of {{getSellerName()}}</h4>
+</ng-template>
+<div class="order-list-container">
+    <table mat-table [dataSource]="orders" class="mat-elevation-z8">
+      <ng-container matColumnDef="index">
+        <th mat-header-cell *matHeaderCellDef> No. </th>
+        <td mat-cell *matCellDef="let order; let i = index"> {{i + 1}} </td>
+      </ng-container>
+      <ng-container matColumnDef="buyer_name">
+        <th mat-header-cell *matHeaderCellDef> Buyer Name </th>
+        <td mat-cell *matCellDef="let order"> {{getNameUser(order.buyer_id)}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="seller_name" *ngIf="showAll">
+        <th mat-header-cell *matHeaderCellDef> Seller Name </th>
+        <td mat-cell *matCellDef="let order"> {{getNameUser(order.seller_id)}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="createAt">
+        <th mat-header-cell *matHeaderCellDef> Created At </th>
+        <td mat-cell *matCellDef="let order"> {{order.createAt | date}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="product_name">
+        <th mat-header-cell *matHeaderCellDef> Product Name </th>
+        <td mat-cell *matCellDef="let order"> {{getNameProduct(order.product_id)}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>

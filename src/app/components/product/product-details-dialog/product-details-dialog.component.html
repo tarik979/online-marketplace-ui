@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Product Details</h2>
+<mat-dialog-content>
+  <p><strong>Name:</strong> {{ data.product.name }}</p>
+  <p><strong>Description:</strong> {{ data.product.longDescription }}</p>
+  <p><strong>Price:</strong> {{ data.product.price | currency }}</p>
+  <p><strong>Category:</strong> {{ getCategoryName(data.product.categoryId) }}</p>
+  <p><strong>Seller:</strong> {{ getSellerName(data.product.sallerId) }}</p>
+  <img *ngIf="data.product.imageurl" [src]="data.product.imageurl" alt="{{ data.product.imagename }}" class="product-image">
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onClose()">Close</button>
+</mat-dialog-actions>

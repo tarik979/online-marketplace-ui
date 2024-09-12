@@ -1,0 +1,21 @@
+<div  class="" id="popUp">
+    <div class="modal-content">
+      <span class="close" (click) = "onNoClick()">&times;</span>
+      <div class="submit-form">
+        <div>
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              required
+              [(ngModel)]="category.name"
+              name="name"
+            />
+          </div>
+          <button (click)="saveCategory()" class="btn btn-success">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>

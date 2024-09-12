@@ -1,0 +1,38 @@
+<div class="list row">
+  <div class="col-md-8 d-flex align-items-center">
+    <mat-form-field appearance="fill" class="search-field">
+      <mat-label>Search by Name</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Search by Name">
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="openDialog()" class="open-form-button">Add Category</button>
+  </div>
+</div>
+
+<h4>Categories List</h4>
+<table mat-table [dataSource]="categories" matSort class="mat-elevation-z8">
+  <ng-container matColumnDef="NO.">
+    <th mat-header-cell *matHeaderCellDef> No. </th>
+    <td mat-cell *matCellDef="let category; let i = index">{{i + 1}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Category Name </th>
+    <td mat-cell *matCellDef="let category"> {{ category.name }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="numberOfProducts">
+    <th mat-header-cell *matHeaderCellDef> Number of Products </th>
+    <td mat-cell *matCellDef="let category"> {{ getNumberOfProducts(category.categoryID)  }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="update">
+    <th mat-header-cell *matHeaderCellDef> Actions </th>
+    <td mat-cell *matCellDef="let category" class="text-end">
+      <button mat-button color="warn" (click)="deleteCategory(category.categoryID)">Remove</button>
+      <button mat-button color="primary" (click)="openUpdateDialog(category)" [disabled]="getNumberOfProducts(category.categoryID) > 0">Update</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

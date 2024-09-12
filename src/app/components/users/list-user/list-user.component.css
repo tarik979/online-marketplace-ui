@@ -1,0 +1,33 @@
+.user-list-container {
+    padding: 20px;
+  }
+
+  .mat-elevation-z8 {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+
+  .mat-header-cell {
+    font-weight: bold;
+  }
+
+
+  .action-button {
+    margin-right: 10px;
+  }
+
+  .action-button:last-child {
+    margin-right: 0;
+  }
+
+  .action-header{
+    text-align: center;
+  }
+
+  .manage-order-button{
+    text-align: center;
+    font-size: 12px;
+    padding: 4px 8px;
+    min-width: 80px;
+    height: auto;
+    margin-left: 20px
+  }
