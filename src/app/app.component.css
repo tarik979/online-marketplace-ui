@@ -1,16 +1,8 @@
 .sidenav-container {
-    height: 100vh;
-  }
-  
-  mat-sidenav {
-    width: 250px;
-  }
-  
-  mat-sidenav-content {
-    padding: 16px;
-  }
-  
-  .content {
-    padding: 16px;
-  }
-  
+  height: 100vh;
+}
+
+.content {
+  padding: 16px;
+  background-color: #f7f7f7;
+}

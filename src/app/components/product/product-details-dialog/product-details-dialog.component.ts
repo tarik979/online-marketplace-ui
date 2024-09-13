@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Category } from 'src/app/models/category.model';
+import { Order } from 'src/app/models/order.model';
 import { User } from 'src/app/models/user.mode';
 
 
@@ -12,7 +13,7 @@ import { User } from 'src/app/models/user.mode';
 export class ProductDetailsDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<ProductDetailsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { product: any; categories: Category[]; users: User[] }
+    @Inject(MAT_DIALOG_DATA) public data: { product: any; categories: Category[]; users: User[]; orders: Order[] }
   ) {}
 
   onClose(): void {
@@ -27,5 +28,9 @@ export class ProductDetailsDialogComponent {
   getSellerName(id: number): string {
     const seller = this.data.users.find(u => u.userId === id);
     return seller ? seller.firstName + ' ' + seller.lastName : '';
+  }
+
+  getNumberOfOrders(productId :number){
+    return this.data.orders.filter(order => order.product_id === productId && order.status == "Valid").length
   }
 }

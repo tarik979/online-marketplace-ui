@@ -1,0 +1,71 @@
+<div class="register-container">
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <h2>User Registration</h2>
+
+    <!-- First Name -->
+    <div>
+      <mat-form-field>
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstName" type="text" placeholder="Enter your first name">
+        <div *ngIf="submitted && registerForm.controls['firstName'].invalid">
+          <small class="error">First name is required</small>
+        </div>
+      </mat-form-field>
+    </div>
+
+    <!-- Last Name -->
+    <div>
+      <mat-form-field>
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" type="text" placeholder="Enter your last name">
+        <div *ngIf="submitted && registerForm.controls['lastName'].invalid">
+          <small class="error">Last name is required</small>
+        </div>
+      </mat-form-field>
+    </div>
+
+    <!-- Email -->
+    <div>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email" placeholder="Enter your email">
+        <div *ngIf="submitted && registerForm.controls['email'].invalid">
+          <small class="error" *ngIf="registerForm.controls['email'].errors?.['required']">Email is required</small>
+          <small class="error" *ngIf="registerForm.controls['email'].errors?.['email']">Invalid email address</small>
+        </div>
+      </mat-form-field>
+    </div>
+
+    <!-- Password -->
+    <div>
+      <mat-form-field>
+        <mat-label>Password</mat-label>
+        <input matInput formControlName="password" type="password" placeholder="Enter your password">
+        <div *ngIf="submitted && registerForm.controls['password'].invalid">
+          <small class="error" *ngIf="registerForm.controls['password'].errors?.['required']">Password is required</small>
+          <small class="error" *ngIf="registerForm.controls['password'].errors?.['minlength']">Password must be at least 6 characters</small>
+        </div>
+      </mat-form-field>
+    </div>
+
+    <!-- Role Selection (Dropdown or Radio Buttons) -->
+    <div>
+      <mat-form-field>
+        <mat-label>Select Role</mat-label>
+        <mat-select formControlName="role">
+          <mat-option value="ROLE_SELLER">Seller</mat-option>
+          <mat-option value="ROLE_BUYER">Buyer</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div *ngIf="submitted && registerForm.controls['role'].invalid">
+        <small class="error">Role is required</small>
+      </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button mat-raised-button color="primary" type="submit" >Register</button>
+
+    <!-- Reset Button -->
+    <button mat-raised-button color="accent" type="button" (click)="onReset()">Reset</button>
+  </form>
+</div>

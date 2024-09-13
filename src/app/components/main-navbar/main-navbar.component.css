@@ -1,0 +1,13 @@
+.mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+  background-color: #7da2a9;
+}
+
+.spacer {
+  flex: 1;
+}
+
+a.mat-button {
+  color: white;
+}

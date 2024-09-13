@@ -9,6 +9,8 @@ import { CategoriesService } from 'src/app/services/categories.service';
 import { ProductService } from 'src/app/services/product.service';
 import { UserService } from 'src/app/services/user.service';
 import { ProductDetailsDialogComponent } from '../product-details-dialog/product-details-dialog.component';
+import { OrderService } from 'src/app/services/order.service';
+import { Order } from 'src/app/models/order.model';
 
 @Component({
   selector: 'app-product-list',
@@ -24,18 +26,21 @@ export class ProductListComponent implements OnInit{
   categories : Category[] = [];
   users:User[] = [];
   submitted = false;
+  orders:Order[] = [];
 
 
 
   constructor(private productService:ProductService,
               private categoryService:CategoriesService,
               private usersService: UserService,
+              private ordersService: OrderService,
               private dialog:MatDialog){}
 
   ngOnInit(): void {
    this.retrieveProducts()
    this.getUsers()
    this.getAllCategories()
+   this.retrieveOrders()
   }
 
   @ViewChild(MatSort)
@@ -75,6 +80,15 @@ export class ProductListComponent implements OnInit{
     });
   }
 
+  retrieveOrders(){
+    this.ordersService.getAll().subscribe({
+      next: (data) => {
+        this.orders = data;
+      },
+      error: (e) => console.log(e)
+    })
+  }
+
   getAllCategories(){
     this.categoryService.getAll().subscribe({
       next:(data) => {
@@ -107,7 +121,8 @@ export class ProductListComponent implements OnInit{
       data: {
         product,
         categories: this.categories,
-        users: this.users
+        users: this.users,
+        orders: this.orders
       }
     });
   }

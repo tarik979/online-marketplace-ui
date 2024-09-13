@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'online-marketplace-ui';
+
+  sidenavOpened: boolean = true;
+
+  toggleSidenav() {
+    this.sidenavOpened = !this.sidenavOpened;
+  }
 }

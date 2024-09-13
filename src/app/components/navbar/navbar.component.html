@@ -1,25 +1,10 @@
-<mat-sidenav-container color="primary" class="sidenav-container">
-  <mat-sidenav #sidenav mode="side" opened>
-    <mat-toolbar color="primary" class="sidenav-toolbar">
-      Admin DashBoard
-    </mat-toolbar>
-    <mat-list>
-      <mat-list-item class="mat-list-item" routerLink="/admin/products" routerLinkActive="active">Products</mat-list-item>
-      <mat-list-item class="mat-list-item" routerLink="/admin/categories" routerLinkActive="active">Categories</mat-list-item>
-      <mat-list-item class="mat-list-item" routerLink="/admin/users" routerLinkActive="active">Users</mat-list-item>
-      <mat-list-item class="mat-list-item" routerLink="/admin/list-orders" routerLinkActive="active">Orders</mat-list-item>      
-    </mat-list>
-  </mat-sidenav>
+<mat-toolbar color="primary" class="sidenav-toolbar">
+  Admin Dashboard
+</mat-toolbar>
 
-  <mat-sidenav-content>
-    <mat-toolbar color="primary">
-      <button mat-icon-button (click)="sidenav.toggle()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <span>Online Marketplace</span>
-    </mat-toolbar>
-    <div class="content">
-      <router-outlet></router-outlet>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+<mat-list>
+  <mat-list-item routerLink="/admin/products" routerLinkActive="active">Products</mat-list-item>
+  <mat-list-item routerLink="/admin/categories" routerLinkActive="active">Categories</mat-list-item>
+  <mat-list-item routerLink="/admin/users" routerLinkActive="active">Users</mat-list-item>
+  <mat-list-item routerLink="/admin/list-orders" routerLinkActive="active">Orders</mat-list-item>
+</mat-list>
