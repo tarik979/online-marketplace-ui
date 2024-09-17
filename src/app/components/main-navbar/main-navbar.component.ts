@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./main-navbar.component.css']
 })
 export class MainNavbarComponent implements OnInit{
+
   @Output() toggleSidenav = new EventEmitter<void>();
   isLoggedIn = false;
   constructor(private authService: AuthService) {}
@@ -20,4 +21,16 @@ export class MainNavbarComponent implements OnInit{
   logout(): void {
     this.authService.logout();
   }
+
+  isBuyer(): boolean {
+    return this.authService.isBuyer()
+    }
+
+    isLoginIn(): boolean{
+      return this.authService.isAuthenticated();
+    }
+
+    isSellerOrAdmin():boolean{
+      return this.authService.isSeller() || this.authService.isAdmin()
+    }
 }

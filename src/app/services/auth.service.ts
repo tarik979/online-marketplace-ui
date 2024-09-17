@@ -58,4 +58,29 @@ export class AuthService {
   isAuthenticated(): boolean {
     return !!localStorage.getItem('jwtToken');
   }
+
+  getUserRoles(): string[] {
+    const roles = localStorage.getItem('userRoles');
+    return roles ? JSON.parse(roles) : [];
+  }
+
+  // Check if user has a specific role
+  hasRole(role: string): boolean {
+    const roles = this.getUserRoles();
+    return roles.includes(role);
+  }
+
+  // Example usage to check if the user is a seller
+  isSeller(): boolean {
+    return this.hasRole('ROLE_SELLER');
+  }
+
+  // Example usage to check if the user is a buyer
+  isBuyer(): boolean {
+    return this.hasRole('ROLE_BUYER');
+  }
+
+  isAdmin():boolean{
+    return this.hasRole('ROLE_ADMIN');
+  }
 }

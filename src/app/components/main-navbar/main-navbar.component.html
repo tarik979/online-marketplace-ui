@@ -1,5 +1,5 @@
 <mat-toolbar color="primary">
-  <button mat-icon-button (click)="toggleSidenav.emit()">
+  <button mat-icon-button (click)="toggleSidenav.emit()" *ngIf="isLoginIn() && isSellerOrAdmin()">
     <mat-icon>menu</mat-icon>
   </button>
   <span>Online Marketplace</span>
@@ -15,5 +15,6 @@
 
   <ng-container *ngIf="isLoggedIn">
     <button mat-button (click)="logout()">Logout</button>
+    <a mat-button *ngIf="isBuyer()" routerLink="/buyer/cart">Cart</a>
   </ng-container>
 </mat-toolbar>

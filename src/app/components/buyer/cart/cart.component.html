@@ -1,0 +1,42 @@
+<div class="cart-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Shopping Cart</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-list *ngIf="cartItems.length > 0; else emptyCart">
+        <mat-list-item *ngFor="let item of cartItems">
+          <div class="item-container">
+            <div>
+              <strong>Order ID:</strong> {{ item.orderId }}
+            </div>
+            <div>
+              <strong>Product ID:</strong> {{ item.product_id }}
+            </div>
+            <div>
+              <strong>Status:</strong> {{ item.status }}
+            </div>
+            <button mat-icon-button color="warn" (click)="removeFromCart(item)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </mat-list>
+
+      <ng-template #emptyCart>
+        <p>No pending orders in your cart.</p>
+      </ng-template>
+
+      <div class="cart-summary" *ngIf="cartItems.length > 0">
+        <h4>Total: {{ getTotalPrice() | currency }}</h4>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions *ngIf="cartItems.length > 0">
+      <button mat-raised-button color="primary" (click)="checkout()">Checkout</button>
+      <button mat-raised-button color="warn" (click)="clearCart()">Clear Cart</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

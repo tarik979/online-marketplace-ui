@@ -1,8 +1,6 @@
-import { AlertServiceService } from './../../../../services/alert-service.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../../../../services/product.service';
-import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { Category } from 'src/app/models/category.model';
 import { CategoriesService } from 'src/app/services/categories.service';
@@ -12,7 +10,7 @@ import { CategoriesService } from 'src/app/services/categories.service';
   templateUrl: './add-product.component.html',
   styleUrls: ['./add-product.component.css']
 })
-export class AddProductComponent implements OnInit{
+export class AddProductComponent implements OnInit {
   productForm: FormGroup;
   submitted = false;
   categories: Category[] = [];
@@ -30,8 +28,6 @@ export class AddProductComponent implements OnInit{
       longDescription: ['', Validators.required],
       price: ['', [Validators.required, Validators.min(0.01)]],
       category: ['', Validators.required],
-      sellerId: ['', Validators.required],  // Add sellerId
-      image: ['', Validators.required]  // Image field for validation
     });
   }
 
@@ -60,25 +56,31 @@ export class AddProductComponent implements OnInit{
   onSubmit(): void {
     this.submitted = true;
 
+    // Check if the form is invalid or image is not selected
     if (this.productForm.invalid || !this.selectedImage) {
       return;
     }
 
-    // Prepare product data as a JSON object
-    const productData = {
+    // Create a FormData object to send the product details and the image
+    const formData = new FormData();
+
+    // Append the product details as JSON
+    formData.append('product', new Blob([JSON.stringify({
       name: this.productForm.value.productName,
       shortDescription: this.productForm.value.shortDescription,
       longDescription: this.productForm.value.longDescription,
       price: this.productForm.value.price,
       categoryId: this.productForm.value.category,
-      sellerId: this.productForm.value.sellerId
-    };
+      sellerId: Number(localStorage.getItem("userId"))
+    })], { type: 'application/json' }));
 
-    // Call the product service to create the product with the image
-    this.productService.create(productData, this.selectedImage).subscribe({
+
+    formData.append('image', this.selectedImage);
+
+    this.productService.create(formData).subscribe({
       next: (response) => {
         console.log('Product added successfully:', response);
-        this.router.navigate(['/products']);  // Redirect after success
+        this.router.navigate(['/admin/products/products']);
       },
       error: (err) => {
         console.error('Error adding product:', err);
@@ -86,10 +88,9 @@ export class AddProductComponent implements OnInit{
     });
   }
 
-  // Handle form reset
   onReset(): void {
     this.submitted = false;
     this.productForm.reset();
-    this.selectedImage = null;  // Reset the image selection
+    this.selectedImage = null;
   }
 }

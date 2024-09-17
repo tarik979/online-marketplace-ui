@@ -1,0 +1,16 @@
+.cart-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.item-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.cart-summary {
+  text-align: right;
+  margin-top: 20px;
+}

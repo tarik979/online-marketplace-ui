@@ -19,5 +19,9 @@ export class OrderService {
     return this.http.get<Order>(`${baseUrl}/order/find/${id}`);
   }
 
-  
+  create(order:Order):Observable<Order>{
+    return this.http.post<Order>(`${baseUrl}/order/add`, order);
+  }
+
+
 }

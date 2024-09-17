@@ -37,6 +37,10 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { MatOptionModule } from '@angular/material/core';
 import { AuthInterceptor } from './interceptor/auth.interceptor';
+import { CartComponent } from './components/buyer/cart/cart.component';
+import { MatCardModule } from '@angular/material/card';
+import { SideBarSellerComponent } from './components/seller/side-bar-seller/side-bar-seller.component';
+import { SellerProductsComponent } from './components/seller/products/seller-products/seller-products.component';
 
 
 @NgModule({
@@ -55,7 +59,10 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
     HomeComponent,
     MainNavbarComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    CartComponent,
+    SideBarSellerComponent,
+    SellerProductsComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,6 +74,7 @@ import { AuthInterceptor } from './interceptor/auth.interceptor';
     MatTableModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatCardModule,
     MatInputModule,
     MatToolbarModule,
     MatSidenavModule,

@@ -1,0 +1,13 @@
+.sidenav-toolbar {
+  background-color: #7da2a9;
+}
+
+mat-sidenav {
+  width: 250px;
+  background-color: #f7f7f7;
+}
+
+.mat-list-item.active {
+  background-color: #7da2a9;
+  color: white;
+}

@@ -3,83 +3,62 @@
     <h2>Add New Product</h2>
 
     <!-- Product Name -->
-    <div>
-      <mat-form-field>
-        <mat-label>Product Name</mat-label>
-        <input matInput formControlName="productName" type="text" placeholder="Enter product name">
-        <div *ngIf="submitted && productForm.controls['productName'].invalid">
-          <small class="error">Product name is required</small>
-        </div>
-      </mat-form-field>
-    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Product Name</mat-label>
+      <input matInput formControlName="productName" placeholder="Enter product name">
+      <mat-error *ngIf="submitted && productForm.controls['productName'].invalid">
+        Product name is required
+      </mat-error>
+    </mat-form-field>
 
     <!-- Short Description -->
-    <div>
-      <mat-form-field>
-        <mat-label>Short Description</mat-label>
-        <input matInput formControlName="shortDescription" type="text" placeholder="Enter short description">
-        <div *ngIf="submitted && productForm.controls['shortDescription'].invalid">
-          <small class="error">Short description is required</small>
-        </div>
-      </mat-form-field>
-    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Short Description</mat-label>
+      <input matInput formControlName="shortDescription" placeholder="Enter short description">
+      <mat-error *ngIf="submitted && productForm.controls['shortDescription'].invalid">
+        Short description is required
+      </mat-error>
+    </mat-form-field>
 
     <!-- Long Description -->
-    <div>
-      <mat-form-field>
-        <mat-label>Long Description</mat-label>
-        <textarea matInput formControlName="longDescription" placeholder="Enter long description"></textarea>
-        <div *ngIf="submitted && productForm.controls['longDescription'].invalid">
-          <small class="error">Long description is required</small>
-        </div>
-      </mat-form-field>
-    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Long Description</mat-label>
+      <textarea matInput formControlName="longDescription" placeholder="Enter long description"></textarea>
+      <mat-error *ngIf="submitted && productForm.controls['longDescription'].invalid">
+        Long description is required
+      </mat-error>
+    </mat-form-field>
 
     <!-- Product Price -->
-    <div>
-      <mat-form-field>
-        <mat-label>Price</mat-label>
-        <input matInput formControlName="price" type="number" placeholder="Enter product price">
-        <div *ngIf="submitted && productForm.controls['price'].invalid">
-          <small class="error" *ngIf="productForm.controls['price'].errors?.['required']">Price is required</small>
-          <small class="error" *ngIf="productForm.controls['price'].errors?.['min']">Price must be greater than zero</small>
-        </div>
-      </mat-form-field>
-    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Price</mat-label>
+      <input matInput formControlName="price" type="number" placeholder="Enter product price">
+      <mat-error *ngIf="submitted && productForm.controls['price'].invalid">
+        <ng-container *ngIf="productForm.controls['price'].errors?.['required']">Price is required</ng-container>
+        <ng-container *ngIf="productForm.controls['price'].errors?.['min']">Price must be greater than zero</ng-container>
+      </mat-error>
+    </mat-form-field>
 
     <!-- Category Selection -->
-    <div>
-      <mat-form-field>
-        <mat-label>Select Category</mat-label>
-        <mat-select formControlName="category">
-          <mat-option *ngFor="let category of categories" [value]="category.categoryID">
-            {{ category.name }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-      <div *ngIf="submitted && productForm.controls['category'].invalid">
-        <small class="error">Category is required</small>
-      </div>
-    </div>
-
-    <!-- Seller ID -->
-    <div>
-      <mat-form-field>
-        <mat-label>Seller ID</mat-label>
-        <input matInput formControlName="sellerId" type="number" placeholder="Enter seller ID">
-        <div *ngIf="submitted && productForm.controls['sellerId'].invalid">
-          <small class="error">Seller ID is required</small>
-        </div>
-      </mat-form-field>
-    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Select Category</mat-label>
+      <mat-select formControlName="category">
+        <mat-option *ngFor="let category of categories" [value]="category.categoryID">
+          {{ category.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="submitted && productForm.controls['category'].invalid">
+        Category is required
+      </mat-error>
+    </mat-form-field>
 
     <!-- Image Upload -->
     <div>
       <label for="file">Upload Image</label>
       <input id="file" type="file" (change)="onImageSelected($event)">
-    </div>
-    <div *ngIf="submitted && !selectedImage">
-      <small class="error">Image is required</small>
+      <small class="error" *ngIf="submitted && !selectedImage">
+        Image is required
+      </small>
     </div>
 
     <!-- Buttons -->

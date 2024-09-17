@@ -14,6 +14,8 @@ export class ProductDetailsDialogComponent {
   constructor(
     public dialogRef: MatDialogRef<ProductDetailsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { product: any; categories: Category[]; users: User[]; orders: Order[] }
+            = { product: null, categories: [], users: [], orders: [] }
+
   ) {}
 
   onClose(): void {
@@ -30,7 +32,11 @@ export class ProductDetailsDialogComponent {
     return seller ? seller.firstName + ' ' + seller.lastName : '';
   }
 
-  getNumberOfOrders(productId :number){
-    return this.data.orders.filter(order => order.product_id === productId && order.status == "Valid").length
+  getNumberOfOrders(productId: number): number {
+    if (!this.data.orders) {
+      return 0;
+    }
+    const numOrders = this.data.orders.filter(order => order.product_id === productId && order.status === "Valid");
+    return numOrders.length;
   }
 }

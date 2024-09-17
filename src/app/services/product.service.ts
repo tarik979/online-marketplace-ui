@@ -21,12 +21,12 @@ export class ProductService {
     return this.http.get<Products> (`${baseUrl}/products/find/${id}`);
   }
 
-  create(product: any, image: File): Observable<any> {
-    const formData = new FormData();
-    formData.append('product', new Blob([JSON.stringify(product)], { type: 'application/json' }));
-    formData.append('image', image);
+  create(productData: FormData): Observable<any> {
+    return this.http.post( baseUrl + '/products/add', productData, {
+      headers: {
 
-    return this.http.post<any>(`${baseUrl}/products/add`, formData);
+      }
+    });
   }
 
   update(data:any):Observable<any> {
