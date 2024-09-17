@@ -3,12 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AddProductComponent } from './components/product/add-product/add-product.component';
+import { AddProductComponent } from './components/seller/products/add-product/add-product.component';
 // import { ProductsDetailsComponent } from './components/product/products-details/products-details.component';
 import { ProductDetailsComponent } from './components/product/product-details/product-details.component'
 import { ProductListComponent } from './components/product/product-list/product-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { CategoriesListComponent } from './components/category/categories-list/categories-list.component';
 import { NgxSearchFilterModule } from 'ngx-search-filter';
 
@@ -36,6 +36,7 @@ import { MainNavbarComponent } from './components/main-navbar/main-navbar.compon
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { MatOptionModule } from '@angular/material/core';
+import { AuthInterceptor } from './interceptor/auth.interceptor';
 
 
 @NgModule({
@@ -80,7 +81,9 @@ import { MatOptionModule } from '@angular/material/core';
     MatOptionModule,
     MatSelectModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

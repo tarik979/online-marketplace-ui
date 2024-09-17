@@ -4,7 +4,6 @@ export class Products {
   shortDescription?: string
   longDescription?: string
   price?: number
-  quntity?: number
   categoryId?: number
   sallerId?: number
   imagename?: string

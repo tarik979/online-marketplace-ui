@@ -2,7 +2,6 @@
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <h2>User Registration</h2>
 
-    <!-- First Name -->
     <div>
       <mat-form-field>
         <mat-label>First Name</mat-label>
@@ -13,7 +12,7 @@
       </mat-form-field>
     </div>
 
-    <!-- Last Name -->
+
     <div>
       <mat-form-field>
         <mat-label>Last Name</mat-label>
@@ -24,7 +23,7 @@
       </mat-form-field>
     </div>
 
-    <!-- Email -->
+
     <div>
       <mat-form-field>
         <mat-label>Email</mat-label>
@@ -35,8 +34,6 @@
         </div>
       </mat-form-field>
     </div>
-
-    <!-- Password -->
     <div>
       <mat-form-field>
         <mat-label>Password</mat-label>
@@ -48,7 +45,6 @@
       </mat-form-field>
     </div>
 
-    <!-- Role Selection (Dropdown or Radio Buttons) -->
     <div>
       <mat-form-field>
         <mat-label>Select Role</mat-label>
@@ -62,10 +58,8 @@
       </div>
     </div>
 
-    <!-- Submit Button -->
     <button mat-raised-button color="primary" type="submit" >Register</button>
 
-    <!-- Reset Button -->
     <button mat-raised-button color="accent" type="button" (click)="onReset()">Reset</button>
   </form>
 </div>

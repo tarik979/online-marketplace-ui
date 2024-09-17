@@ -1,10 +1,22 @@
 <h2>Login</h2>
-<mat-form-field>
-  <mat-label>Email</mat-label>
-  <input matInput type="email" placeholder="Enter your email">
-</mat-form-field>
-<mat-form-field>
-  <mat-label>Password</mat-label>
-  <input matInput type="password" placeholder="Enter your password">
-</mat-form-field>
-<button mat-raised-button color="primary">Login</button>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput formControlName="email" placeholder="Enter your email" required>
+    <mat-error *ngIf="loginForm.controls['email'].invalid&& loginForm.controls['email'].touched">
+      Please enter a valid email
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input matInput formControlName="password" type="password" placeholder="Enter your password" required>
+    <mat-error *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched">
+      Password must be at least 6 characters.
+    </mat-error>
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid">Login</button>
+
+  <p *ngIf="errorMessage" style="color: red;">{{ errorMessage }}</p>
+</form>

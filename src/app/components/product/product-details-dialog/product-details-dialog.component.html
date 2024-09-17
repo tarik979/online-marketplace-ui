@@ -6,7 +6,6 @@
       <p><strong>Name:</strong> {{ data.product.name }}</p>
       <p><strong>Description:</strong> {{ data.product.longDescription }}</p>
       <p><strong>Price:</strong> {{ data.product.price | currency }}</p>
-      <p><strong>Quantity:</strong> {{ data.product.quntity }}</p>
       <p><strong>Number Of Orders:</strong> {{ getNumberOfOrders(data.product.id) }}</p>
       <p><strong>Category:</strong> {{ getCategoryName(data.product.categoryId) }}</p>
       <p><strong>Seller:</strong> {{ getSellerName(data.product.sallerId) }}</p>

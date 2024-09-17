@@ -3,8 +3,17 @@
     <mat-icon>menu</mat-icon>
   </button>
   <span>Online Marketplace</span>
+
   <span class="spacer"></span>
+
   <a mat-button routerLink="/">Home</a>
-  <a mat-button routerLink="/login">Login</a>
-  <a mat-button routerLink="/register">Register</a>
+
+  <ng-container *ngIf="!isLoggedIn">
+    <a mat-button routerLink="/login">Login</a>
+    <a mat-button routerLink="/register">Register</a>
+  </ng-container>
+
+  <ng-container *ngIf="isLoggedIn">
+    <button mat-button (click)="logout()">Logout</button>
+  </ng-container>
 </mat-toolbar>
