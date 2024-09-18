@@ -35,3 +35,52 @@ export class SellerGuard implements CanActivate {
     return true;
   }
 }
+
+@Injectable({
+  providedIn: 'root'
+})
+
+export class BuyerGuard implements CanActivate {
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  canActivate(): boolean {
+    if (!this.authService.isAuthenticated() || !this.authService.isBuyer()) {
+      this.router.navigate(['/login']);
+      return false;
+    }
+
+    return true;
+  }
+}
+@Injectable({
+  providedIn: 'root'
+})
+export class AdminGuard implements CanActivate {
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  canActivate(): boolean {
+    if (!this.authService.isAuthenticated() || !this.authService.isAdmin()) {
+      this.router.navigate(['/login']);
+      return false;
+    }
+
+    return true;
+  }
+}
+@Injectable({
+  providedIn: 'root'
+})
+export class LoggedInGuard implements CanActivate {
+
+  constructor(private authService: AuthService, private router: Router) {}
+
+  canActivate(): boolean {
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/']);
+      return false;
+    }
+    return true;
+  }
+}

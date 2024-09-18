@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -10,7 +11,7 @@ export class MainNavbarComponent implements OnInit{
 
   @Output() toggleSidenav = new EventEmitter<void>();
   isLoggedIn = false;
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService,private router: Router) {}
 
   ngOnInit(): void {
     this.authService.isLoggedIn().subscribe((loggedIn) => {
@@ -20,6 +21,7 @@ export class MainNavbarComponent implements OnInit{
 
   logout(): void {
     this.authService.logout();
+    this.router.navigate([''])
   }
 
   isBuyer(): boolean {

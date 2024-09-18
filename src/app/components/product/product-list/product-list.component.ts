@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user.service';
 import { ProductDetailsDialogComponent } from '../product-details-dialog/product-details-dialog.component';
 import { OrderService } from 'src/app/services/order.service';
 import { Order } from 'src/app/models/order.model';
+import { UpdateProductDialogComponent } from '../update-product-dialog/update-product-dialog.component';
 
 @Component({
   selector: 'app-product-list',
@@ -126,4 +127,19 @@ export class ProductListComponent implements OnInit{
       }
     });
   }
+
+  openUpdateDialog(product: any): void {
+    const dialogRef = this.dialog.open(UpdateProductDialogComponent, {
+      width: '600px',
+      data: { product }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Product updated successfully:', result);
+        this.retrieveProducts();
+      }
+    });
+  }
 }
+

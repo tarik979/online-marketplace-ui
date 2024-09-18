@@ -29,8 +29,8 @@ export class ProductService {
     });
   }
 
-  update(data:any):Observable<any> {
-    return this.http.put<any>(`${baseUrl}/products/update`, data);
+  update(productData: FormData):Observable<any> {
+    return this.http.put<any>(`${baseUrl}/products/update`, productData);
   }
 
   deleteById(id: number):Observable<any> {

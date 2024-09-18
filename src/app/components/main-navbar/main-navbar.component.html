@@ -14,7 +14,7 @@
   </ng-container>
 
   <ng-container *ngIf="isLoggedIn">
+    <a mat-button *ngIf="isBuyer()" routerLink="/buyer/cart">Favorite</a>
     <button mat-button (click)="logout()">Logout</button>
-    <a mat-button *ngIf="isBuyer()" routerLink="/buyer/cart">Cart</a>
   </ng-container>
 </mat-toolbar>

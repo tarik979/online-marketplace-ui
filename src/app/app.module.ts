@@ -41,6 +41,7 @@ import { CartComponent } from './components/buyer/cart/cart.component';
 import { MatCardModule } from '@angular/material/card';
 import { SideBarSellerComponent } from './components/seller/side-bar-seller/side-bar-seller.component';
 import { SellerProductsComponent } from './components/seller/products/seller-products/seller-products.component';
+import { UpdateProductDialogComponent } from './components/product/update-product-dialog/update-product-dialog.component';
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import { SellerProductsComponent } from './components/seller/products/seller-pro
     CartComponent,
     SideBarSellerComponent,
     SellerProductsComponent,
+    UpdateProductDialogComponent,
   ],
   imports: [
     BrowserModule,

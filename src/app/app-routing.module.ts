@@ -11,20 +11,21 @@ import { RegisterComponent } from './components/register/register.component';
 import { AddProductComponent } from './components/seller/products/add-product/add-product.component';
 import { CartComponent } from './components/buyer/cart/cart.component';
 import { SellerProductsComponent } from './components/seller/products/seller-products/seller-products.component';
+import { AdminGuard, AuthGuard, BuyerGuard, LoggedInGuard, SellerGuard } from './guard/auth.guard';
 
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent, canActivate:[LoggedInGuard] },
+  { path: 'register', component: RegisterComponent, canActivate:[LoggedInGuard] },
   {
-    path:'buyer',
+    path:'buyer',  canActivate:[AuthGuard, BuyerGuard],
     children:[
       {path:'cart', component	: CartComponent}
     ]
   },
   {
-    path: 'admin',
+    path: 'admin', canActivate:[AuthGuard, AdminGuard],
     children: [
       { path: 'products', component: ProductListComponent },
       { path: 'products/:id', component: ProductDetailsComponent },
@@ -35,7 +36,7 @@ const routes: Routes = [
     ]
   },
   {
-    path:"seller",
+    path:"seller", canActivate:[AuthGuard, SellerGuard],
     children:[
       { path: 'add-product', component: AddProductComponent },
       { path: 'products', component: SellerProductsComponent }

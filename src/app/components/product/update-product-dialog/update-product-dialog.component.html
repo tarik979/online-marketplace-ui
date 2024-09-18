@@ -1,0 +1,45 @@
+<h2 mat-dialog-title class="dialog-title">Update Product</h2>
+
+<mat-dialog-content class="dialog-content">
+  <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+
+    <mat-form-field appearance="fill">
+      <mat-label>Product Name</mat-label>
+      <input matInput formControlName="name" placeholder="Enter product name">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Short Description</mat-label>
+      <input matInput formControlName="shortDescription" placeholder="Enter short description">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Long Description</mat-label>
+      <textarea matInput formControlName="longDescription" placeholder="Enter long description"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Price</mat-label>
+      <input matInput formControlName="price" type="number" placeholder="Enter product price">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Select Category</mat-label>
+      <mat-select formControlName="category">
+        <mat-option *ngFor="let category of categories" [value]="category.categoryID">
+          {{ category.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div>
+      <label for="file">Upload Image</label>
+      <input id="file" type="file" (change)="onImageSelected($event)">
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onSubmit()">Update</button>
+  <button mat-button (click)="onClose()">Cancel</button>
+</mat-dialog-actions>

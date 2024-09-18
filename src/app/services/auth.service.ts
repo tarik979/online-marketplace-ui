@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
@@ -11,7 +12,7 @@ export class AuthService {
 
   private tokenSubject = new BehaviorSubject<string | null>(null);
   private loggedIn = new BehaviorSubject<boolean>(this.hasToken());
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private route: Router) { }
 
   gettoken(): Observable<string | null>{
     return this.tokenSubject.asObservable();
@@ -64,18 +65,16 @@ export class AuthService {
     return roles ? JSON.parse(roles) : [];
   }
 
-  // Check if user has a specific role
   hasRole(role: string): boolean {
     const roles = this.getUserRoles();
     return roles.includes(role);
   }
 
-  // Example usage to check if the user is a seller
+
   isSeller(): boolean {
     return this.hasRole('ROLE_SELLER');
   }
 
-  // Example usage to check if the user is a buyer
   isBuyer(): boolean {
     return this.hasRole('ROLE_BUYER');
   }

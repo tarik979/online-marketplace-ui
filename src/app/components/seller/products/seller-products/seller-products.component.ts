@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductDetailsDialogComponent } from 'src/app/components/product/product-details-dialog/product-details-dialog.component';
+import { UpdateProductDialogComponent } from 'src/app/components/product/update-product-dialog/update-product-dialog.component';
 import { Category } from 'src/app/models/category.model';
 import { Order } from 'src/app/models/order.model';
 import { Products } from 'src/app/models/products.model';
@@ -27,6 +28,7 @@ export class SellerProductsComponent {
   users:User[] = [];
   submitted = false;
   orders:Order[] = [];
+  sellerId: number = 0;
 
 
 
@@ -110,8 +112,9 @@ export class SellerProductsComponent {
     return category ? category.name + "" : "";
   }
 
-  getSellerName(id: number){
-    const seller = this.users.find(u => u.userId == id);
+  getSellerName(){
+    this.sellerId = Number(localStorage.getItem("userId"))
+    const seller = this.users.find(u => u.userId == this.sellerId);
     return seller ? seller.firstName + " " + seller.lastName : "";
   }
 
@@ -123,6 +126,20 @@ export class SellerProductsComponent {
         categories: this.categories,
         users: this.users,
         orders: this.orders
+      }
+    });
+  }
+
+  openUpdateDialog(product: any): void {
+    const dialogRef = this.dialog.open(UpdateProductDialogComponent, {
+      width: '600px',
+      data: { product }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Product updated successfully:', result);
+        this.retrieveProducts();
       }
     });
   }

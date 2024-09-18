@@ -12,7 +12,6 @@
       </mat-form-field>
     </div>
 
-
     <div>
       <mat-form-field>
         <mat-label>Last Name</mat-label>
@@ -22,7 +21,6 @@
         </div>
       </mat-form-field>
     </div>
-
 
     <div>
       <mat-form-field>
@@ -34,6 +32,7 @@
         </div>
       </mat-form-field>
     </div>
+
     <div>
       <mat-form-field>
         <mat-label>Password</mat-label>
@@ -58,8 +57,11 @@
       </div>
     </div>
 
-    <button mat-raised-button color="primary" type="submit" >Register</button>
-
+    <button mat-raised-button color="primary" type="submit">Register</button>
     <button mat-raised-button color="accent" type="button" (click)="onReset()">Reset</button>
+
+    <p class="login-link">
+      Already have an account? <a routerLink="/login">Login here</a>
+    </p>
   </form>
 </div>
