@@ -14,7 +14,7 @@ export class AddProductComponent implements OnInit {
   productForm: FormGroup;
   submitted = false;
   categories: Category[] = [];
-  selectedImage: File | null = null;  // Hold the selected image file
+  selectedImage: File | null = null;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -28,6 +28,8 @@ export class AddProductComponent implements OnInit {
       longDescription: ['', Validators.required],
       price: ['', [Validators.required, Validators.min(0.01)]],
       category: ['', Validators.required],
+      sold:[false],
+      delete:[false]
     });
   }
 
@@ -35,7 +37,7 @@ export class AddProductComponent implements OnInit {
     this.loadCategories();
   }
 
-  // Fetch the categories from the CategoriesService
+
   loadCategories(): void {
     this.categoriesService.getAll().subscribe({
       next: (data) => {
@@ -47,24 +49,23 @@ export class AddProductComponent implements OnInit {
     });
   }
 
-  // Handle image selection
   onImageSelected(event: any): void {
     this.selectedImage = event.target.files[0];
   }
 
-  // Handle form submission
+
   onSubmit(): void {
     this.submitted = true;
 
-    // Check if the form is invalid or image is not selected
+
     if (this.productForm.invalid || !this.selectedImage) {
       return;
     }
 
-    // Create a FormData object to send the product details and the image
+
     const formData = new FormData();
 
-    // Append the product details as JSON
+
     formData.append('product', new Blob([JSON.stringify({
       name: this.productForm.value.productName,
       shortDescription: this.productForm.value.shortDescription,

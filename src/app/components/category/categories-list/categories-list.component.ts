@@ -105,9 +105,10 @@ export class CategoriesListComponent implements OnInit {
     this.categories.filter = filterValue.trim().toLowerCase();
   }
 
-  getNumberOfProducts(categoryId : number):number{
-   return this.AllProduct.filter(product => product.categoryId == categoryId).length
+  getNumberOfProducts(categoryId: number): number {
+    return this.AllProduct ? this.AllProduct.filter(product => product.categoryId === categoryId).length : 0;
   }
+
 
   openDialog(): void {
     const dialogRef = this.dialog.open(AddCategoryPopUpComponent, {

@@ -4,11 +4,12 @@
     <img *ngIf="data.product.imageurl" [src]="data.product.imageurl" alt="{{ data.product.imagename }}" class="product-image">
     <div class="product-info">
       <p><strong>Name:</strong> {{ data.product.name }}</p>
-      <p><strong>Description:</strong> {{ data.product.longDescription }}</p>
+      <p><strong>Short Description:</strong> {{ data.product.shortDescription }}</p>
+      <p><strong>Long Description:</strong> {{ data.product.longDescription }}</p>
       <p><strong>Price:</strong> {{ data.product.price | currency }}</p>
-      <p><strong>Number Of Orders:</strong> {{ getNumberOfOrders(data.product.id) }}</p>
       <p><strong>Category:</strong> {{ getCategoryName(data.product.categoryId) }}</p>
-      <p><strong>Seller:</strong> {{ getSellerName(data.product.sallerId) }}</p>
+      <p *ngIf="!isSeller"><strong>Seller:</strong> {{ getSellerName(data.product.sallerId) }}</p>
+      <p><strong>Number of Favorite:</strong> {{getNumberOfOrders(data.product.id)}}</p>
     </div>
   </div>
 </mat-dialog-content>

@@ -1,0 +1,29 @@
+
+.actions-column {
+  text-align: center;
+  width: 300px;
+}
+
+.mat-cell.actions-column {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 16px;
+}
+
+
+button.mat-button {
+  min-width: 80px;
+}
+
+
+@media (max-width: 600px) {
+  .actions-column {
+    width: auto;
+  }
+
+  button.mat-button {
+    min-width: auto;
+  }
+}

@@ -1,1 +1,55 @@
-<p>product-details works!</p>
+<div *ngIf="product" class="product-detail-container">
+  <h1>{{ product.name }}</h1>
+
+  <div class="product-image-container">
+    <img [src]="product.imageurl" alt="{{ product.name }}" class="product-image">
+  </div>
+
+  <p><strong>Description:</strong> {{ product.longDescription }}</p>
+  <p><strong>Price:</strong> ${{ product.price }}</p>
+  <p><strong>Status:</strong> {{ product.sold ? 'Sold' : 'Available' }}</p>
+  <p *ngIf="category"><strong>Category:</strong> {{ category.name }}</p>
+  <p *ngIf="seller"><strong>Seller:</strong> {{ seller.firstName }} {{ seller.lastName }} ({{ seller.email }})</p>
+</div>
+
+<hr>
+
+
+<div class="reviews-container">
+  <h2>Reviews</h2>
+
+  <div *ngIf="reviews.length > 0; else noReviews">
+    <div *ngFor="let review of reviews" class="review">
+      <p><strong>Rating:</strong> {{ review.rating }} / 5</p>
+      <p><strong>Comment:</strong> {{ review.comment }}</p>
+      <hr>
+    </div>
+  </div>
+
+  <ng-template #noReviews>
+    <p>No reviews yet. Be the first to leave a review!</p>
+  </ng-template>
+</div>
+
+<hr>
+
+<h3>Add a Review</h3>
+<form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+  <div>
+    <label for="rating">Rating:</label>
+    <input id="rating" type="number" formControlName="rating" min="1" max="5">
+    <div *ngIf="submitted && reviewForm.controls['rating'].invalid">
+      <small class="error">Rating is required (1-5).</small>
+    </div>
+  </div>
+
+  <div>
+    <label for="comment">Comment:</label>
+    <textarea id="comment" formControlName="comment"></textarea>
+    <div *ngIf="submitted && reviewForm.controls['comment'].invalid">
+      <small class="error">Comment is required.</small>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="!auth.isBuyer()" >Submit Review</button>
+</form>

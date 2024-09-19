@@ -1,0 +1,36 @@
+<div class="seller-reviews-container">
+  <h1>Product Reviews</h1>
+
+  <!-- Filter by Product -->
+  <div class="filter-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Filter by Product</mat-label>
+      <mat-select [(ngModel)]="selectedProductId" (selectionChange)="filterReviewsByProduct()">
+        <mat-option value="">All Products</mat-option>
+        <mat-option *ngFor="let product of products" [value]="product.id">
+          {{ product.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <!-- Review List with Pagination -->
+  <div class="reviews-list" *ngIf="filteredReviews.data.length > 0; else noReviews">
+    <div *ngFor="let review of filteredReviews.filteredData" class="review-item">
+      <p><strong>Product:</strong> {{ getProductName(review.productId) }}</p>
+      <p><strong>Rating:</strong> {{ review.rating }} / 5</p>
+      <p><strong>Author:</strong> {{ getUserName(review.userId) }}</p>
+      <button mat-button (click)="openReviewDialog(review)">View Comment</button>
+      <button mat-button color="warn" (click)="deleteReview(review.reviewId)">Delete</button>
+      <hr>
+    </div>
+
+    <!-- Add Pagination Controls -->
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+
+  <!-- No Reviews Template -->
+  <ng-template #noReviews>
+    <p>No reviews available.</p>
+  </ng-template>
+</div>

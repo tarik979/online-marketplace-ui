@@ -23,5 +23,9 @@ export class OrderService {
     return this.http.post<Order>(`${baseUrl}/order/add`, order);
   }
 
+  deleteById(id:number):Observable<any>{
+    return this.http.delete<any>(`${baseUrl}/order/delete/${id}`);
+  }
+
 
 }

@@ -24,4 +24,8 @@ export class UserService {
   deleteById(id:number):Observable<any>{
     return this.http.delete<any>(`${baseUrl}/users/delete/${id}`);
   }
+
+  update(user:User):Observable<any>{
+    return this.http.put<any>(`${baseUrl}/users/update`, user);
+  }
 }

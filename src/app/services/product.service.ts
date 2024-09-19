@@ -29,11 +29,22 @@ export class ProductService {
     });
   }
 
-  update(productData: FormData):Observable<any> {
+  update(productData: FormData | Products):Observable<any> {
     return this.http.put<any>(`${baseUrl}/products/update`, productData);
   }
 
   deleteById(id: number):Observable<any> {
     return this.http.delete<any>(`${baseUrl}/products/delete/${id}`);
+  }
+
+  marksold(id: number):Observable<any>{
+    return this.http.get<any>(`${baseUrl}/products/sold/${id}`);
+  }
+
+  unmarksold(id: number):Observable<any>{
+    return this.http.get<any>(`${baseUrl}/products/unsold/${id}`);
+  }
+  Setdeleted(id: number):Observable<any>{
+    return this.http.get<any>(`${baseUrl}/products/deleted/${id}`);
   }
 }

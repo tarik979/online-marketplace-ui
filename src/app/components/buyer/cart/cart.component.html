@@ -1,23 +1,25 @@
-<div class="cart-container">
+<div class="favorite-container">
   <mat-card>
     <mat-card-header>
       <mat-card-title>Favorite Products</mat-card-title>
     </mat-card-header>
 
     <mat-card-content>
-      <mat-list *ngIf="cartItems.length > 0; else emptyCart">
-        <mat-list-item *ngFor="let item of cartItems">
+      <mat-list *ngIf="favoriteItems.length > 0; else emptyFavorite">
+        <mat-list-item *ngFor="let item of favoriteItems">
           <div class="item-container">
-            <div>
-              <strong>Order ID:</strong> {{ item.orderId }}
+            <div class="item-details">
+              <div>
+                <strong>Product Name:</strong> {{ item.product?.name }}
+              </div>
+              <div>
+                <strong>Category Name:</strong> {{ item.category?.name }}
+              </div>
+              <div>
+                <strong>Seller Email:</strong> {{ item.seller?.email }}
+              </div>
             </div>
-            <div>
-              <strong>Product ID:</strong> {{ item.product_id }}
-            </div>
-            <div>
-              <strong>Status:</strong> {{ item.status }}
-            </div>
-            <button mat-icon-button color="warn" (click)="removeFromCart(item)">
+            <button mat-icon-button color="warn" (click)="removeFromFavorites(item.product.orderId)">
               <mat-icon>delete</mat-icon>
             </button>
           </div>
@@ -25,18 +27,13 @@
         </mat-list-item>
       </mat-list>
 
-      <ng-template #emptyCart>
-        <p>No pending orders in your cart.</p>
+      <ng-template #emptyFavorite>
+        <p>No favorite products added.</p>
       </ng-template>
-
-      <div class="cart-summary" *ngIf="cartItems.length > 0">
-        <h4>Total: {{ getTotalPrice() | currency }}</h4>
-      </div>
     </mat-card-content>
 
-    <mat-card-actions *ngIf="cartItems.length > 0">
-      <button mat-raised-button color="primary" (click)="checkout()">Checkout</button>
-      <button mat-raised-button color="warn" (click)="clearCart()">Clear Cart</button>
+    <mat-card-actions *ngIf="favoriteItems.length > 0">
+      <button mat-raised-button color="warn" (click)="clearFavorites()">Clear Favorites</button>
     </mat-card-actions>
   </mat-card>
 </div>

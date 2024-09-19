@@ -23,99 +23,128 @@ export class SellerProductsComponent {
   isModalOpen = false;
   currentIndex = -1;
   Products = new MatTableDataSource<Products>;
-  displayedColumns: string[] = ['NO.', 'name', 'category', 'delete'];
-  categories : Category[] = [];
-  users:User[] = [];
+  displayedColumns: string[] = ['NO.', 'name', 'category', 'sold', 'delete']; // Added 'sold' column
+  categories: Category[] = [];
+  users: User[] = [];
   submitted = false;
-  orders:Order[] = [];
+  orders: Order[] = [];
   sellerId: number = 0;
 
+  filterValues = {
+    name: '',
+    category: '',
+    sold: 'all'
+  };
 
-
-  constructor(private productService:ProductService,
-              private categoryService:CategoriesService,
-              private usersService: UserService,
-              private ordersService: OrderService,
-              private dialog:MatDialog){}
+  constructor(
+    private productService: ProductService,
+    private categoryService: CategoriesService,
+    private usersService: UserService,
+    private ordersService: OrderService,
+    private dialog: MatDialog
+  ) {}
 
   ngOnInit(): void {
-   this.retrieveProducts()
-   this.getUsers()
-   this.getAllCategories()
-   this.retrieveOrders()
+    this.retrieveProducts();
+    this.getUsers();
+    this.getAllCategories();
+    this.retrieveOrders();
+    this.Products.filterPredicate = this.createFilter();
   }
 
-  @ViewChild(MatSort)
-  sort!: MatSort;
 
-  applyFilter(event: Event): void {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.Products.filter = filterValue.trim().toLowerCase();
+  @ViewChild(MatSort) sort!: MatSort;
+
+  ngAfterViewInit() {
+    this.Products.sort = this.sort;
   }
 
-  openModal(): void {
-    const model = document.getElementById("popUp");
-    if(model != null)
-    model.style.display ="block";
-    this.isModalOpen = true;
+  applyFilter(): void {
+    this.Products.filter = JSON.stringify(this.filterValues);
   }
 
-  closeModal(): void {
-    this.isModalOpen = false;
+  createFilter(): (product: Products, filter: string) => boolean {
+    return (product: Products, filter: string): boolean => {
+      const searchTerms = JSON.parse(filter);
+      const matchesName = product.name?.toLowerCase().includes(searchTerms.name.toLowerCase());
+      const matchesCategory = !searchTerms.category || this.getCategoryName(product?.categoryId) === searchTerms.category;
+
+      const matchesSold =
+        searchTerms.sold === 'all' ||
+        (searchTerms.sold === 'true' && product.sold) ||
+        (searchTerms.sold === 'false' && !product.sold);
+
+      return (matchesName && matchesCategory && matchesSold) as boolean;
+    };
   }
 
-  deleteProduct(id:number): void{
+
+  markAsSold(product: Products): void {
+    this.productService.marksold(product.id as number).subscribe(
+    )
+
+    window.location.reload();
+  }
+
+  deleteProduct(id: number): void {
     this.productService.deleteById(id).subscribe({
-      next:(res) =>{
+      next: (res) => {
         window.location.reload();
       },
-      error: (e)=> console.log(e)
-    })
+      error: (e) => console.log(e)
+    });
   }
 
   retrieveProducts(): void {
     this.productService.getAll().subscribe({
       next: (data) => {
-        this.Products.data = data.filter(product => product.sallerId == Number(localStorage.getItem("userId")));
+        this.Products.data = data.filter(
+          (product) => product.sallerId == Number(localStorage.getItem('userId'))
+        );
       },
       error: (e) => console.error(e)
     });
   }
 
-  retrieveOrders(){
+  retrieveOrders() {
     this.ordersService.getAll().subscribe({
       next: (data) => {
         this.orders = data;
       },
       error: (e) => console.log(e)
-    })
+    });
   }
 
-  getAllCategories(){
+
+
+
+  getAllCategories() {
     this.categoryService.getAll().subscribe({
-      next:(data) => {
-        this.categories = data
-      },error:(e) => console.log(e)
-    })
+      next: (data) => {
+        this.categories = data;
+      },
+      error: (e) => console.log(e)
+    });
   }
 
-  getUsers(){
+  getUsers() {
     this.usersService.getAll().subscribe({
-      next:(data) => {
+      next: (data) => {
         this.users = data;
-      },error:(e)=> console.log(e)
-    })
+      },
+      error: (e) => console.log(e)
+    });
   }
 
-  getCategoryName(id: number) : String{
-    const category = this.categories.find(c => c.categoryID == id);
-    return category ? category.name + "" : "";
+  getCategoryName(id: number | undefined): String {
+    const category = this.categories.find((c) => c.categoryID == id);
+    return category ? category.name + '' : '';
   }
 
-  getSellerName(){
-    this.sellerId = Number(localStorage.getItem("userId"))
-    const seller = this.users.find(u => u.userId == this.sellerId);
-    return seller ? seller.firstName + " " + seller.lastName : "";
+  getSellerName() {
+    this.sellerId = Number(localStorage.getItem('userId'));
+    const seller = this.users.find((u) => u.userId == this.sellerId);
+    return seller ? seller.firstName + ' ' + seller.lastName : '';
   }
 
   openDialog(product: Products): void {
@@ -136,7 +165,7 @@ export class SellerProductsComponent {
       data: { product }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         console.log('Product updated successfully:', result);
         this.retrieveProducts();

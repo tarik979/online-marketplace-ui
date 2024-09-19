@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Review Comment</h2>
+<mat-dialog-content>
+  <p><strong>Rating:</strong> {{ data.review.rating }} / 5</p>
+  <p><strong>Comment:</strong> {{ data.review.comment }}</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

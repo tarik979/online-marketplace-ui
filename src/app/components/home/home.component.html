@@ -1,13 +1,47 @@
+<div class="search-and-filters">
+
+  <mat-form-field appearance="fill">
+    <mat-label>Search by Name</mat-label>
+    <input matInput [(ngModel)]="filterValues.name" placeholder="Search by Name" (input)="applyFilter()">
+  </mat-form-field>
+
+
+  <mat-form-field appearance="fill">
+    <mat-label>Filter by Category</mat-label>
+    <mat-select [(ngModel)]="filterValues.category" (selectionChange)="applyFilter()">
+      <mat-option *ngFor="let category of categories" [value]="category.name">{{ category.name }}</mat-option>
+      <mat-option value="">All Categories</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+
+  <mat-form-field appearance="fill">
+    <mat-label>Sold Status</mat-label>
+    <mat-select [(ngModel)]="filterValues.sold" (selectionChange)="applyFilter()">
+      <mat-option value="all">All</mat-option>
+      <mat-option value="true">Sold</mat-option>
+      <mat-option value="false">Not Sold</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+
+
 <div class="products-container">
-  <div *ngFor="let product of products" class="product-card">
-    
+  <div *ngFor="let product of filteredProducts" class="product-card">
     <img [src]="product.imageurl" alt="{{ product.name }}" class="product-image">
 
     <h2>{{ product.name }}</h2>
     <p>Price: ${{ product.price }}</p>
+    <p>Status: {{ product.sold ? 'Sold' : 'Available' }}</p>
 
     <button mat-raised-button color="primary" (click)="addToCart(product)">
-      Add to Cart
+      Add to Favorite
     </button>
   </div>
 </div>
+
+<mat-paginator [length]="filteredProducts.length"
+               [pageSize]="pageSize"
+               [pageSizeOptions]="[5, 10, 20]"
+               (page)="onPageChange($event)">
+</mat-paginator>

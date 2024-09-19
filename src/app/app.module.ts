@@ -4,8 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AddProductComponent } from './components/seller/products/add-product/add-product.component';
-// import { ProductsDetailsComponent } from './components/product/products-details/products-details.component';
-import { ProductDetailsComponent } from './components/product/product-details/product-details.component'
 import { ProductListComponent } from './components/product/product-list/product-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
@@ -42,13 +40,18 @@ import { MatCardModule } from '@angular/material/card';
 import { SideBarSellerComponent } from './components/seller/side-bar-seller/side-bar-seller.component';
 import { SellerProductsComponent } from './components/seller/products/seller-products/seller-products.component';
 import { UpdateProductDialogComponent } from './components/product/update-product-dialog/update-product-dialog.component';
+import { OrderSellerComponent } from './components/seller/orders/order-seller/order-seller.component';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
+import { ProductDetailComponent } from './components/product/product-details/product-details.component';
+import { ReviewDialogComponent } from './components/seller/orders/review/review-dialog/review-dialog.component';
+import { UpdateUserDialogComponent } from './components/users/update-user-dialog/update-user-dialog.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AddProductComponent,
-    ProductDetailsComponent,
     ProductListComponent,
     CategoriesListComponent,
     NavbarComponent,
@@ -65,6 +68,10 @@ import { UpdateProductDialogComponent } from './components/product/update-produc
     SideBarSellerComponent,
     SellerProductsComponent,
     UpdateProductDialogComponent,
+    OrderSellerComponent,
+    ProductDetailComponent,
+    ReviewDialogComponent,
+    UpdateUserDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -89,7 +96,8 @@ import { UpdateProductDialogComponent } from './components/product/update-produc
     ReactiveFormsModule,
     MatSortModule,
     MatOptionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatPaginatorModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }

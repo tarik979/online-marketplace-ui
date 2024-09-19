@@ -1,53 +1,55 @@
 <div class="list row">
-    <div class="col-md-8 d-flex align-items-center">
-      <mat-form-field appearance="fill" class="search-field">
-        <mat-label>Search by Name</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Search by Name">
-      </mat-form-field>
-    </div>
-    <div class="col-md-4 d-flex justify-content-end">
-      <button mat-raised-button color="primary" class="action-button" (click)="showAllUsers()">Show All</button>
-      <button mat-raised-button color="primary" class="action-button" (click)="showBuyers()">Show Buyers</button>
-      <button mat-raised-button color="primary" class="action-button" (click)="showSellers()">Show Sellers</button>
-    </div>
+  <div class="col-md-8 d-flex align-items-center">
+    <mat-form-field appearance="fill" class="search-field">
+      <mat-label>Search by Name</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Search by Name">
+    </mat-form-field>
   </div>
-  <div class="user-list-container">
-    <table mat-table [dataSource]="users" class="mat-elevation-z8">
-      <ng-container matColumnDef="index">
-        <th mat-header-cell *matHeaderCellDef> No. </th>
-        <td mat-cell *matCellDef="let category; let i = index">{{i + 1}}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="firstName">
-        <th mat-header-cell *matHeaderCellDef> First Name </th>
-        <td mat-cell *matCellDef="let user"> {{user.firstName}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="lastName">
-        <th mat-header-cell *matHeaderCellDef> Last Name </th>
-        <td mat-cell *matCellDef="let user"> {{user.lastName}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="createAt">
-        <th mat-header-cell *matHeaderCellDef> Created At </th>
-        <td mat-cell *matCellDef="let user"> {{user.createAt | date}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="role">
-        <th mat-header-cell *matHeaderCellDef> Role </th>
-        <td mat-cell *matCellDef="let user"> {{user.role?.name}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="actions">
-        <th mat-header-cell *matHeaderCellDef class="action-header"> Actions </th>
-        <td mat-cell *matCellDef="let user">
-          <button class="manage-order-button" *ngIf="user.role?.name === 'ROLE_SELLER'" mat-button color="accent" [routerLink]="['/admin/list-orders', user.userId]">
-            Manage Orders
-          </button>
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+  <div class="col-md-4 d-flex justify-content-end">
+    <button mat-raised-button color="primary" class="action-button" (click)="showAllUsers()">Show All</button>
+    <button mat-raised-button color="primary" class="action-button" (click)="showBuyers()">Show Buyers</button>
+    <button mat-raised-button color="primary" class="action-button" (click)="showSellers()">Show Sellers</button>
   </div>
+</div>
+
+<div class="user-list-container">
+  <table mat-table [dataSource]="users" class="mat-elevation-z8">
+    <ng-container matColumnDef="index">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let category; let i = index">{{i + 1}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="firstName">
+      <th mat-header-cell *matHeaderCellDef> First Name </th>
+      <td mat-cell *matCellDef="let user"> {{user.firstName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lastName">
+      <th mat-header-cell *matHeaderCellDef> Last Name </th>
+      <td mat-cell *matCellDef="let user"> {{user.lastName}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="createAt">
+      <th mat-header-cell *matHeaderCellDef> Created At </th>
+      <td mat-cell *matCellDef="let user"> {{user.createAt | date}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="role">
+      <th mat-header-cell *matHeaderCellDef> Role </th>
+      <td mat-cell *matCellDef="let user"> {{user.role?.name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let user">
+        <button mat-button color="accent" (click)="openUpdateDialog(user)">Update</button>
+        <button mat-button color="warn" (click)="deleteUser(user.userId)">Delete</button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> <!-- Add paginator -->
+</div>

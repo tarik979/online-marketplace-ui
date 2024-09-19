@@ -1,6 +1,8 @@
-.cart-container {
+.favorite-container {
   max-width: 600px;
-  margin: 0 auto;
+  margin: 50px auto;
+  padding: 20px;
+  text-align: center;
 }
 
 .item-container {
@@ -8,9 +10,26 @@
   justify-content: space-between;
   align-items: center;
   margin: 10px 0;
+  text-align: left;
 }
 
-.cart-summary {
-  text-align: right;
-  margin-top: 20px;
+.item-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+  word-wrap: break-word;
+}
+
+.mat-card-actions {
+  justify-content: center;
+}
+
+strong {
+  margin-right: 5px;
+}
+
+button.mat-icon-button {
+  align-self: flex-start;
+  margin-left: 10px;
 }

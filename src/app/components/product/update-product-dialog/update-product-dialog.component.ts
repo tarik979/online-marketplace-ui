@@ -30,7 +30,7 @@ export class UpdateProductDialogComponent {
       longDescription: [this.data.product.longDescription, Validators.required],
       price: [this.data.product.price, [Validators.required, Validators.min(0.01)]],
       category: [this.data.product.categoryId, Validators.required],
-      image: ['']
+      image: [''],
     });
   }
 
@@ -69,7 +69,9 @@ export class UpdateProductDialogComponent {
       longDescription: this.productForm.value.longDescription,
       price: this.productForm.value.price,
       categoryId: this.productForm.value.category,
-      sellerId: this.data.product.sallerId
+      sellerId: this.data.product.sallerId,
+      sold:this.data.product.sold,
+      delete:this.data.product.delete
     })], { type: 'application/json' }));
 
 

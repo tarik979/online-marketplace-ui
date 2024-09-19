@@ -1,35 +1,31 @@
-/* General table styling */
 .mat-header-cell, .mat-cell {
   padding: 8px 16px;
   text-align: left;
 }
 
-/* Actions column styling */
 .actions-column {
   text-align: center;
-  width: 200px;  /* Ensure the column has enough space for both buttons */
+  width: 200px;
 }
 
-/* Fix button alignment using inline block instead of flex */
 .text-end {
-  white-space: nowrap;  /* Prevent the buttons from wrapping onto the next line */
-  text-align: right;    /* Align buttons to the right */
+  white-space: nowrap;
+  text-align: right;
 }
 
 .text-end button {
-  margin-left: 10px;    /* Add space between the buttons */
-  display: inline-block; /* Ensure buttons are inline */
+  margin-left: 10px;
+  display: inline-block;
 }
 
-/* Media query for smaller screens */
 @media (max-width: 768px) {
   .text-end {
-    text-align: center; /* Center buttons for smaller screens */
+    text-align: center;
   }
 
   .text-end button {
-    display: block;       /* Stack buttons vertically on small screens */
-    margin: 5px auto;     /* Center the buttons vertically and horizontally */
-    width: 100%;          /* Make the buttons take full width */
+    display: block;
+    margin: 5px auto;
+    width: 100%;
   }
 }
